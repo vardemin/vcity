@@ -12,9 +12,8 @@ module.exports = function (app) {
     occuredAt: {type : Date ,required: true},
     description:{type: String, required: true},
     photos:[{type: Number, required: true , ref : 'photos'}],
-    location:[{type: Number , required :true}] ,
+    location:[{type: Number  , required :true}] ,
     radius : {type: Number , required :true},
-    comments : {type: String , required: true, ref : 'comments'},
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
