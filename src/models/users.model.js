@@ -14,7 +14,7 @@ module.exports = function (app) {
     sex: {type: Boolean, requred: true},
     interests: [{type: Number, ref: 'interests'}],
     avatar: {type: Number, ref: 'photos'},
-    authority: {type: Number, ref: 'authorities'},
+    roles: [{type: String, required:true }],
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

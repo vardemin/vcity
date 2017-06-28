@@ -1,8 +1,8 @@
 // Initializes the `event` service on path `/event`
 const createService = require('feathers-mongoose');
-const createModel = require('../../models/event.model');
-const hooks = require('./event.hooks');
-const filters = require('./event.filters');
+const createModel = require('../../models/events.model');
+const hooks = require('./events.hooks');
+const filters = require('./events.filters');
 
 module.exports = function () {
   const app = this;
@@ -10,16 +10,16 @@ module.exports = function () {
   const paginate = app.get('paginate');
 
   const options = {
-    name: 'event',
+    name: 'events',
     Model,
     paginate
   };
 
   // Initialize our service with any options it requires
-  app.use('/event', createService(options));
+  app.use('/events', createService(options));
 
   // Get our initialized service so that we can register hooks and filters
-  const service = app.service('event');
+  const service = app.service('events');
 
   service.hooks(hooks);
 

@@ -7,8 +7,8 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const comments = new Schema({
 
-    users: { type: Number, required: true, ref : 'users' },
-    events : { type : Number , required: true , ref : 'events'},
+    userId: { type: Number, required: true, ref : 'users' },
+    event : { type : Number , required: true , ref : 'events'},
     text : {type : String, required : true},
 
 

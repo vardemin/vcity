@@ -8,7 +8,7 @@ module.exports = function (app) {
   const event = new Schema({
 
     name: {type: String, required: true},
-    users: {type: Number, required: true, ref:'users'},
+    userId: {type: Number, required: true, ref:'users'},
     occuredAt: {type : Date ,required: true},
     description:{type: String, required: true},
     photos:[{type: Number, required: true , ref : 'photos'}],
@@ -19,5 +19,5 @@ module.exports = function (app) {
     updatedAt: { type: Date, default: Date.now }
   });
 
-  return mongooseClient.model('event', event);
+  return mongooseClient.model('events', event);
 };
