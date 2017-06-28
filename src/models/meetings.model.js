@@ -1,22 +1,22 @@
-// institutions-model.js - A mongoose model
+// meetings-model.js - A mongoose model
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-//predpriyatiya
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
-  const institutions = new Schema({
+  const meetings = new Schema({
     name: {type: String, required: true},
     description: {type: String, required: true},
     location: [{type: Number, required: true}],
-    photos: [{type: Number, ref: 'photos'}],
-    plan: {type: Number, ref: 'plans'},
-    responsible: [{type: Number, ref: 'users'}],
-
+    radius: {type: Number, required: true},
+    priority: {type: Number, required: true},
+    institution: {type: Number, ref:'institutions'},
+    when: {type: Date, required: true},
+    end: {type: Date, required: true},
+    interests: [{type: Number, ref:'insterests'}],
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
   });
 
-  return mongooseClient.model('institutions', institutions);
+  return mongooseClient.model('meetings', meetings);
 };

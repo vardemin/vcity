@@ -2,13 +2,14 @@
 // 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
+//posti dlya kompaniy
 module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const plans = new Schema({
-    text: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    name: {type: String, required: true},
+    priority: {type: Number, required: true},
+
   });
 
   return mongooseClient.model('plans', plans);
