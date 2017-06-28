@@ -6,8 +6,8 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const authorities = new Schema({
-    name: { type: String, required: true },
-    rank: {type: Number, required: true}
+    name: { type: String, required: true, unique: true},
+    rank: {type: Number, required: true, unique:true}
   });
 
   return mongooseClient.model('authorities', authorities);
