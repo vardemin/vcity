@@ -14,8 +14,8 @@ const restrict = [
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt'), commonHooks.remove('password','location')],
-    get: [authenticate('jwt') ],
+    find: [ authenticate('jwt'), commonHooks.discard('password','location')],
+    get: [authenticate('jwt'), commonHooks.discard('password','location')],
     create: [ hashPassword() ],
     update: [ restrictToRoles(
       {
