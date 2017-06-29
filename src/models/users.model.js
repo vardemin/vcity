@@ -7,13 +7,13 @@ module.exports = function (app) {
   const users = new mongooseClient.Schema({
 
     email: {type: String, unique: true},
-    password: { type: String },
+    password: { type: String, required: true },
     name: {type: String, required: true},
     age: {type: Number, required: true},
     sex: {type: Boolean, requred: true},
     interests: [{type: Number, ref: 'interests'}],
     avatar: {type: Number, ref: 'photos'},
-    roles: [{type: String, required:true }],
+    roles: [{type: String}],
     location: [Number],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
