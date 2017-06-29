@@ -14,19 +14,24 @@ const restrict = [
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
+    find: [ authenticate('jwt'), commonHooks.remove('password','location')],
     get: [authenticate('jwt') ],
     create: [ hashPassword() ],
     update: [ restrictToRoles(
       {
         roles: ['admin', 'moderator'],
+        ownerField: '_id',
         owner: true 
       }), hashPassword() ],
     patch: [ restrictToRoles({
       roles: ['admin', 'moderator'],
+      ownerField: '_id',
       owner: true
     }), hashPassword() ],
-    remove: [ ...restrict ]
+    remove: [ restrictToRoles({
+      roles: ['admin'],
+      ownerField: '_id',
+      owner: false })]
   },
 
   after: {
