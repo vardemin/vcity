@@ -1,72 +1,118 @@
-<html>
-  <head>
-    <title>Welcome to VCity</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Vcity</title>
 
-      html, body {
-        font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
-        font-weight: 400;
-        font-size: 16px;
-        color: #333;
-      }
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="black" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">VCity</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html">Регистрация</a></li>
+      </ul>
 
-      .center-text {
-        text-align: center;
-      }
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
 
-      main {
-        margin-top: 100px;
-        padding: 20px;
-      }
+  <div class="container">
+    <div class="section checkin-container">
 
-      img.logo {
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        margin-bottom: 30px;
-      }
+    <form>
+      <div class="row">
 
-      h2 {
-        font-size: 2em;
-        font-weight: 100;
-      }
+        <div class="input-field col s8 m8 l8 ">
+          <i class="material-icons prefix">account_circle</i>
+          <input id="icon_prefix" type="text" class="validate" pattern="[a-zA-Z0-9]+" required>
+          <label for="icon_prefix" data-error="Name должно содержать только символы из латинского алфавита и цифры">Name</label>
+        </div>
 
-      footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 20px;
-      }
+        <div class="input-field col s8 m8 l8">
+         <i class="material-icons prefix">https</i>
+          <input id="password" type=password required pattern="(?=.*\d)\w+.{6,30}" class="validate" required>
+          <label for="password" data-error="Пароль должен состоять минимально из 6 латинских символов и включать, по крайней мере одну букву и одну цифру">Password</label>
+        </div>
 
-      footer p {
-        font-weight: 300;
-        font-size: 1.0em;
-      }
+        <div class="input-field col s8 m8 l8">
+         <i class="material-icons prefix">email</i>
+          <input id="email" type="email" class="validate" required>
+          <label for="email" data-error="Введите корректно свой email">Email</label>
+        </div>
 
-      a {
-        color: #31D8A0;
-        text-decoration: none;
-      }
+        <div class="input-field col s8 m8 l8">
+         <i class="material-icons prefix">assessment</i>
+          <input id="age" type="number" min="16" max="120" class="validate" required>
+          <label for="age" data-error="Введите корректно свой возраст">Age</label>
+        </div>
 
-      a:hover,
-      a:focus {
-        color: #31D8A0;
-      }
-    </style>
-  </head>
-  <body>
-    <main class="container">
-      <h2 class="center-text">Life in your city</h2>
+        <div class="input-field col s8 m8 l8">
+          <i class="material-icons prefix">phone</i>
+          <input id="icon_telephone" type="tel" class="validate" required>
+          <label for="icon_telephone" data-error="Введите корректно свой номер">Telephone</label>
+        </div>
 
-      <footer>
-        <p class="center-text">От души жи есть</p>
-      </footer>
-    </main>
+        <div class="input-field col s8 m8 l8">
+          <i class="material-icons prefix">receipt</i>
+    		<select multiple class="icons">
+      			<option value="" disabled selected>Choose your interest</option>
+      			<option value="film" data-icon="images/film.png" class="circle">Film</option>
+      			<option value="book" data-icon="images/book.png" class="circle">Book</option>
+      			<option value="music" data-icon="images/music.png" class="circle">Music</option>
+      			<option value="sport" data-icon="images/sport.png" class="circle">Sport</option>
+      			<option value="photo" data-icon="images/photo.png" class="circle">Photo</option>
+    		</select>
+        </div>
+
+
+        <div class="input-field col s8 m8 l8">
+          <i class="material-icons prefix">supervisor_account</i>
+      		<input name="group1" type="radio" checked id="man" />
+      			<label for="man">Man</label>
+      		<input name="group1" type="radio" id="female" />
+      			<label for="female">Female</label><br><br>
+        </div>
+
+        <div class="input-field col s8 m8 l8">
+          <button class="btn waves-effect waves-light" type="submit" name="action" style="width: 100%">Submit
+    		<i class="material-icons right">send</i>
+  		  </button>
+  		 </div>
+      </div>
+    </form>
+
+
+    </div>
+  </div>
+
+
+
+
+
+  <footer class="page-footer black">
+
+    <div class="footer-copyright">
+      <div class="container">
+      Made by </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/css_select.js"></script>
+
   </body>
 </html>
