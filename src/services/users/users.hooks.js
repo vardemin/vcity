@@ -23,7 +23,7 @@ module.exports = {
         ownerField: '_id',
         owner: true 
       }), hashPassword() ],
-    patch: [ restrictToRoles({
+    patch: [authenticate('jwt'), restrictToRoles({
       roles: ['admin', 'moderator'],
       ownerField: '_id',
       owner: true
