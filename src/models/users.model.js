@@ -8,14 +8,13 @@ module.exports = function (app) {
 
     email: {type: String, unique: true},
     password: { type: String },
-
     name: {type: String, required: true},
     age: {type: Number, required: true},
     sex: {type: Boolean, requred: true},
     interests: [{type: Number, ref: 'interests'}],
     avatar: {type: Number, ref: 'photos'},
     roles: [{type: String, required:true }],
-
+    location: [Number],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });
