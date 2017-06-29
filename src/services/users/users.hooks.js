@@ -14,8 +14,8 @@ const restrict = [
 module.exports = {
   before: {
     all: [],
-    find: [ authenticate('jwt'), commonHooks.discard('password','location')],
-    get: [authenticate('jwt'), commonHooks.discard('password','location')],
+    find: [ authenticate('jwt')],
+    get: [authenticate('jwt')],
     create: [ hashPassword() ],
     update: [ restrictToRoles(
       {
@@ -38,7 +38,7 @@ module.exports = {
     all: [
       commonHooks.when(
         hook => hook.params.provider,
-        commonHooks.discard('password')
+        commonHooks.discard('password', 'location')
       )
     ],
     find: [],
