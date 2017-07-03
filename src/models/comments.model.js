@@ -6,9 +6,8 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const comments = new Schema({
-    _id: Number,
-    userId: { type: Number, required: true, ref : 'users' },
-    event : { type : Number , required: true , ref : 'events'},
+    userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref : 'users' },
+    event : { type : mongoose.Schema.Types.ObjectId , required: true , ref : 'events'},
     text : {type : String, required : true},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

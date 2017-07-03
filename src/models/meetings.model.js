@@ -6,16 +6,15 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const meetings = new Schema({
-    _id: Number,
     name: {type: String, required: true},
     description: {type: String, required: true},
     location: [{type: Number, required: true}],
     radius: {type: Number, required: true},
     priority: {type: Number, required: true},
-    institution: {type: Number, ref:'institutions'},
+    institution: {type: mongoose.Schema.Types.ObjectId, ref:'institutions'},
     when: {type: Date, required: true},
     end: {type: Date, required: true},
-    interests: [{type: Number, ref:'insterests'}],
+    interests: [{type: mongoose.Schema.Types.ObjectId, ref:'insterests'}],
     createdAt: { type: Date, default: Date.now },
   });
 

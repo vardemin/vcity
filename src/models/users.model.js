@@ -13,7 +13,7 @@ module.exports = function (app) {
     age: {type: Number, required: true},
     sex: {type: Boolean, requred: true},
     interests: [{type: mongoose.Schema.Types.ObjectId, ref: 'interests'}],
-    avatar: {type: String, ref: 'photos'},
+    avatar: {type: mongoose.Schema.Types.ObjectId, ref: 'photos'},
     roles: [{type: String}],
     location: [Number],
     createdAt: { type: Date, default: Date.now },

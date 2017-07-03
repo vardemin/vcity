@@ -7,7 +7,6 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const plans = new Schema({
-    _id: Number,
     name: {type: String, required: true},
     priority: {type: Number, required: true},
 

@@ -7,13 +7,12 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const institutions = new Schema({
-    _id: Number,
     name: {type: String, required: true},
     description: {type: String, required: true},
     location: [{type: Number, required: true}],
-    photos: [{type: Number, ref: 'photos'}],
-    plan: {type: Number, ref: 'plans'},
-    responsible: [{type: Number, ref: 'users'}],
+    photos: [{type: mongoose.Schema.Types.ObjectId, ref: 'photos'}],
+    plan: {type: mongoose.Schema.Types.ObjectId, ref: 'plans'},
+    responsible: [{type: mongoose.Schema.Types.ObjectId, ref: 'users'}],
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
