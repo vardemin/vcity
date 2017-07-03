@@ -6,7 +6,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const event = new Schema({
-
+    _id: Number,
     name: {type: String, required: true},
     userId: {type: Number, required: true, ref:'users'},
     occuredAt: {type : Date ,required: true},

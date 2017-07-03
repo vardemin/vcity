@@ -10,15 +10,15 @@ module.exports = function () {
     }
 
     logger.info(message);
-    logger.debug('hook.data', hook.data);
-    logger.debug('hook.params', hook.params);
+    logger.info('hook.data', hook.data);
+    logger.info('hook.params', hook.params);
 
     if (hook.result) {
-      logger.debug('hook.result', hook.result);
+      logger.info('hook.result', hook.result);
     }
 
     if (hook.error) {
-      logger.error(hook.error);
+      logger.info(hook.error);
     }
   };
 };

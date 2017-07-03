@@ -7,7 +7,8 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const review = new Schema({
-    userId: { type: String, ref:'users', required: true },
+    _id: Number,
+    userId: { type: Number, ref:'users', required: true },
     institution: {type: Number, ref:'institutions'},
     text: { type: String, required: true },
     mark: { type: Number, required: true },

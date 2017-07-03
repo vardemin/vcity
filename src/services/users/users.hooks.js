@@ -3,6 +3,8 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
 
 const { hashPassword } = require('feathers-authentication-local').hooks;
+const populate = require('feathers-populate-hook');
+
 const restrict = [
   authenticate('jwt'),
   restrictToOwner({
@@ -27,7 +29,15 @@ module.exports = {
       roles: ['admin', 'moderator'],
       ownerField: '_id',
       owner: true
-    }), hashPassword() ],
+    }), hashPassword(), function(hook) {
+      hook.params.query = {
+        $populate: "interests"
+      };
+      // if (hook.data.interests)
+      //   hook.data.interests.forEach(function(element) {
+      //     element = mongoose.Schema.Types.ObjectId(element.toString());
+      //   }, this);
+    } ],
     remove: [ restrictToRoles({
       roles: ['admin'],
       ownerField: '_id',
