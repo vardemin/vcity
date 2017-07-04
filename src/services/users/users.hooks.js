@@ -38,7 +38,7 @@ module.exports = {
       //     element = mongoose.Schema.Types.ObjectId(element.toString());
       //   }, this);
     } ],
-    remove: [ restrictToRoles({
+    remove: [ authenticate('jwt'), restrictToRoles({
       roles: ['admin'],
       ownerField: '_id',
       owner: false })]
