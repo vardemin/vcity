@@ -1,6 +1,6 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const hooks = require('feathers-authentication-hooks');
-const { populate } = require('feathers-hooks-common');
+const { populate, iff } = require('feathers-hooks-common');
 
 const institutionSchema = {
   include: {
@@ -17,11 +17,15 @@ module.exports = {
     find: [],
     get: [],
     create: [hooks.queryWithCurrentUser()],
-    update: [hooks.restrictToRoles({
+    update: [
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })],
-    patch: [ hooks.restrictToRoles({
+    patch: [ 
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })],
@@ -36,12 +40,12 @@ module.exports = {
     find: [
       function(hook) {
         hook.params.query = {
-          $populate: "institution"
+          $populate: ["userId","photo","comments"]
       };}],
     get: [
       function(hook) {
         hook.params.query = {
-          $populate: "institution"
+          $populate: ["userId","photo","comments"]
       };}],
     create: [],
     update: [],

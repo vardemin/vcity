@@ -19,13 +19,18 @@ module.exports = {
     find: [ authenticate('jwt')],
     get: [authenticate('jwt')],
     create: [ hashPassword() ],
-    update: [ restrictToRoles(
-      {
+    update: [
+      commonHooks.iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(),commonHooks.preventChanges('roles'),
+        commonHooks.preventChanges('_id')]),
+      restrictToRoles({
         roles: ['admin', 'moderator'],
         ownerField: '_id',
         owner: true 
       }), hashPassword() ],
-    patch: [authenticate('jwt'), restrictToRoles({
+    patch: [
+      commonHooks.iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(),commonHooks.preventChanges('roles'),
+        commonHooks.preventChanges('_id')]),
+      authenticate('jwt'), restrictToRoles({
       roles: ['admin', 'moderator'],
       ownerField: '_id',
       owner: true
