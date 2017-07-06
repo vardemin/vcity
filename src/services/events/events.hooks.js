@@ -25,10 +25,19 @@ const popSchema = {
   ]
 };
 
+const around = function(hook) {
+  hook.params.query = {
+    loc: {
+        $near: hook.params.user.location,
+        $maxDistance: 1/6371
+      }
+  }
+}
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [],
+    find: [around(hook)],
     get: [],
     create: [hooks.queryWithCurrentUser()],
     update: [
@@ -40,7 +49,7 @@ module.exports = {
       })],
     patch: [ 
       iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
-        commonHooks.preventChanges('_id')]),
+        commonHooks.preventChanges('userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 

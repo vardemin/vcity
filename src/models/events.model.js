@@ -13,7 +13,7 @@ module.exports = function (app) {
     occuredAt: {type : Date ,required: true},
     description:{type: String, required: true},
     photos:[{type: mongoose.Schema.Types.ObjectId, required: true , ref : 'photos'}],
-    location:[{type: Number  , required :true}] ,
+    location:{type: [Number]  , required :true, index: '2d'},
     radius : {type: Number , required :true},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

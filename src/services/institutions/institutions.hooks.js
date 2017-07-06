@@ -1,5 +1,6 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const { restrictToRoles } = require('feathers-authentication-hooks');
+const { populate, iff } = require('feathers-hooks-common');
 
 module.exports = {
   before: {
@@ -14,12 +15,12 @@ module.exports = {
     })],
     patch: [restrictToRoles({
       roles: ['admin','moderator'],
-      ownerField: 'responsible',
+      ownerField: 'owner',
       owner: true
     })],
     remove: [restrictToRoles({
       roles: ['admin','moderator'],
-      ownerField: 'responsible',
+      ownerField: 'owner',
       owner: true
     })]
   },

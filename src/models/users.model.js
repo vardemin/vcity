@@ -15,7 +15,7 @@ module.exports = function (app) {
     interests: [{type: mongoose.Schema.Types.ObjectId, ref: 'interests'}],
     avatar: {type: mongoose.Schema.Types.ObjectId, ref: 'photos'},
     roles: [{type: String}],
-    location: [Number],
+    location: {type:[Number], index: '2d'},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });
