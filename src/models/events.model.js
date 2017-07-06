@@ -15,7 +15,6 @@ module.exports = function (app) {
     photos:[{type: mongoose.Schema.Types.ObjectId, required: true , ref : 'photos'}],
     location:[{type: Number  , required :true}] ,
     radius : {type: Number , required :true},
-    comments: [{type: mongoose.Schema.Types.ObjectId, ref:'comments'}],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });

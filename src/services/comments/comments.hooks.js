@@ -1,15 +1,6 @@
 const { authenticate, queryWithCurrentUser, restrictToRoles } = require('feathers-authentication').hooks;
 const { when, iff, populate, disallow } = require('feathers-hooks-common');
 
-const populateSchema = {
-  include: {
-    service: 'comments',
-    nameAs: 'comments',
-    parentField: '_id',
-    childField: 'postId'
-  }
-};
-
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -17,13 +8,15 @@ module.exports = {
     get: [],
     create: [queryWithCurrentUser()],
     update: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
+        commonHooks.preventChanges('event'), commonHooks.preventChanges('userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })],
     patch: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
+        commonHooks.preventChanges('event'), commonHooks.preventChanges('userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 

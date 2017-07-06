@@ -16,7 +16,6 @@ module.exports = function (app) {
     plan: {type: mongoose.Schema.Types.ObjectId, ref: 'plans'},
     owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
     responsible: [{type: mongoose.Schema.Types.ObjectId, ref: 'users'}],
-    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'reviews'}],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });

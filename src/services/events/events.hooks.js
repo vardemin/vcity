@@ -2,14 +2,28 @@ const { authenticate } = require('feathers-authentication').hooks;
 const hooks = require('feathers-authentication-hooks');
 const { populate, iff } = require('feathers-hooks-common');
 
-const institutionSchema = {
-  include: {
-    service: 'institutions',
-    nameAs: 'institution',
-    parentField: 'institution',
+const popSchema = {
+  include: [
+  {
+    service: 'comments',
+    nameAs: 'comments',
+    parentField: '_id',
+    childField: 'event'
+  },
+  {
+    service: 'users',
+    nameAs: 'user',
+    parentField: 'userId',
+    childField: '_id'
+  },
+  {
+    service: 'photos',
+    nameAs: 'photos',
+    parentField: 'photos',
     childField: '_id'
   }
-}
+  ]
+};
 
 module.exports = {
   before: {
@@ -18,13 +32,15 @@ module.exports = {
     get: [],
     create: [hooks.queryWithCurrentUser()],
     update: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
+        commonHooks.preventChanges('userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })],
     patch: [ 
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
+        commonHooks.preventChanges('_id')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
@@ -37,16 +53,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [
-      function(hook) {
-        hook.params.query = {
-          $populate: ["userId","photo","comments"]
-      };}],
-    get: [
-      function(hook) {
-        hook.params.query = {
-          $populate: ["userId","photo","comments"]
-      };}],
+    find: [populate({schema: popSchema})],
+    get: [populate({schema: popSchema})],
     create: [],
     update: [],
     patch: [],
