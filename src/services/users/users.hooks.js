@@ -42,11 +42,13 @@ module.exports = {
       //     element = mongoose.Schema.Types.ObjectId(element.toString());
       //   }, this);
       } ],
-    remove: [ authenticate('jwt'), restrictToRoles({
-      roles: ['admin'],
-      ownerField: '_id',
-      owner: false })]
-  },
+    remove: [
+      commonHooks.iff(hook => !hook.params.user.roles.contains('admin'), commonHooks.disableMultiItemChange()),
+      authenticate('jwt'), restrictToRoles({
+          roles: ['admin'],
+          ownerField: '_id',
+          owner: false })]
+      },
 
   after: {
     all: [
