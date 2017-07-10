@@ -7,7 +7,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const photos = new Schema({
-    path: { type: String, unique:true },
+    _id: { type: String, unique:true, required:true },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'users'},
     createdAt: { type: Date, default: Date.now }
   });

@@ -1,7 +1,8 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
-const { queryWithCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
+const { associateCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
 const dauria = require('dauria');
+
 const userSchema = {
   include:  {
     service: 'users',
@@ -25,18 +26,9 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [authenticate('jwt'),
-      function(hook) {
-        if (!hook.data.uri && hook.params.file){
-          const file = hook.params.file;
-          const uri = dauria.getBase64DataURI(file.buffer, file.mimetype);
-          hook.data = {uri: uri};
-        }
-      },
-      function(hook) {
-        hook.app.service('images').create(hook.data, hook.params).then((hook,result)=>hook.data.path=result.id);
-      },
-      queryWithCurrentUser({as: 'user'})],
+    create: [
+      authenticate('jwt'),
+      associateCurrentUser({as: 'user'})],
     update: [
       authenticate('jwt'), 
       restrictToRoles({

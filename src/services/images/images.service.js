@@ -21,7 +21,15 @@ module.exports = function () {
 
   // Initialize our service with any options it requires
   app.use('/images',  // multer parses the file named 'uri'.
-    
+    // temporarely kept in memory
+    multipartMiddleware.single('uri'),
+
+    // another middleware, this time to
+    // transfer the received file to feathers
+    function(req,res,next){
+      req.feathers.file = req.file;
+      next();
+    },
     blobService({Model: blobStorage})
   );
 
