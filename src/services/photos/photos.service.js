@@ -4,6 +4,10 @@ const createModel = require('../../models/photos.model');
 const hooks = require('./photos.hooks');
 const filters = require('./photos.filters');
 
+const multer = require('multer');
+const multipartMiddleware = multer();
+
+
 module.exports = function () {
   const app = this;
   const Model = createModel(app);
@@ -16,7 +20,17 @@ module.exports = function () {
   };
 
   // Initialize our service with any options it requires
-  app.use('/photos', createService(options));
+  app.use('/photos', // Without extra params the data is
+    // temporarely kept in memory
+    multipartMiddleware.single('uri'),
+
+    // another middleware, this time to
+    // transfer the received file to feathers
+    function(req,res,next){
+      req.feathers.file = req.file;
+      next();
+    },
+    createService(options));
 
   // Get our initialized service so that we can register hooks and filters
   const service = app.service('photos');

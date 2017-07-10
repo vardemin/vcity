@@ -13,11 +13,11 @@ module.exports = function () {
   app.configure(users);
   app.configure(events);
   app.configure(photos);
+  app.configure(images);
   app.configure(institutions);
   app.configure(plans);
   app.configure(reviews);
   app.configure(meetings);
   app.configure(interests);
   app.configure(comments);
-  app.configure(images);
 };
