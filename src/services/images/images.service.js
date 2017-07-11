@@ -1,9 +1,7 @@
 const hooks = require('./images.hooks');
 const filters = require('./images.filters');
-
 const multer = require('multer');
 const multipartMiddleware = multer();
-const dauria = require('dauria');
 
 // feathers-blob service
 const blobService = require('feathers-blob');
@@ -12,8 +10,8 @@ const blobService = require('feathers-blob');
 // storage service like AWS or Google Drive.
 const fs = require('fs-blob-store');
 var path = require('path');
-var appDir = path.dirname(require.main.filename);
-const blobStorage = fs(appDir + '/img');
+
+const blobStorage = fs(path.resolve(__dirname,'../../../public/media'));
 
 module.exports = function () {
   const app = this;
