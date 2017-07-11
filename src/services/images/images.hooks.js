@@ -16,9 +16,18 @@ module.exports = {
           const uri = dauria.getBase64DataURI(file.buffer, file.mimetype);
           hook.data = {uri: uri};
         }
-      }
+      },
     ],
-    update: [],
+    update: [
+      authenticate('jwt'),
+      function(hook) {
+        if(hook.data.secret) {
+          
+        }
+      },
+      commonHooks.iff(hook=>!hook.data.secret, commonHooks.disallow()),
+
+    ],
     patch: [],
     remove: []
   },
