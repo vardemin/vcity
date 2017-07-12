@@ -1,4 +1,4 @@
-const { authenticate, queryWithCurrentUser, restrictToRoles } = require('feathers-authentication').hooks;
+const { authenticate, associateCurrentUser, restrictToRoles } = require('feathers-authentication').hooks;
 const { when, iff, populate, disallow } = require('feathers-hooks-common');
 const commonHooks = require('feathers-hooks-common');
 const hooks = require('feathers-authentication-hooks');
@@ -8,17 +8,15 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [queryWithCurrentUser],
+    create: [associateCurrentUser],
     update: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
-        commonHooks.preventChanges('event'), commonHooks.preventChanges('userId')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id','event','userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })],
     patch: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
-        commonHooks.preventChanges('event'), commonHooks.preventChanges('userId')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id','event','userId')]),
       hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 

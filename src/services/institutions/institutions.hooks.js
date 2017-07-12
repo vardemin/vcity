@@ -43,8 +43,8 @@ module.exports = {
 
   after: {
     all: [],
-    find: [commonHooks.populate({scheme: planScheme})],
-    get: [commonHooks.populate({scheme: planScheme})],
+    find: [commonHooks.populate({schema: planScheme})],
+    get: [commonHooks.populate({schema: planScheme})],
     create: [],
     update: [],
     patch: [],
