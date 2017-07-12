@@ -3,6 +3,15 @@ const { restrictToRoles } = require('feathers-authentication-hooks');
 const { populate, iff } = require('feathers-hooks-common');
 const commonHooks = require('feathers-hooks-common');
 
+const planScheme = {
+  include: {
+    service: 'plans',
+    nameAs: 'plan',
+    parentField: 'plan',
+    childField: '_id'
+  }
+};
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -10,32 +19,32 @@ module.exports = {
     get: [],
     create: [restrictToRoles({roles: ['admin','moderator']})],
     update: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
-        commonHooks.preventChanges('owner'), commonHooks.preventChanges('responsible'), commonHooks.preventChanges('plan')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id','owner','responsible','plan')]),
       restrictToRoles({
         roles: ['admin','moderator'],
         ownerField: 'responsible',
         owner: true
       })],
     patch: [
-      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
-        commonHooks.preventChanges('owner'), commonHooks.preventChanges('responsible'), commonHooks.preventChanges('plan')]),
+      iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id','owner','responsible','plan')]),
       restrictToRoles({
         roles: ['admin','moderator'],
         ownerField: 'owner',
         owner: true
       })],
-    remove: [restrictToRoles({
-      roles: ['admin','moderator'],
-      ownerField: 'owner',
-      owner: true
-    })]
+    remove: [
+      iff(hook => !hook.params.user.roles.contains('admin'), commonHooks.disableMultiItemChange()),
+      restrictToRoles({
+        roles: ['admin','moderator'],
+        ownerField: 'owner',
+        owner: true
+      })]
   },
 
   after: {
     all: [],
-    find: [],
-    get: [],
+    find: [commonHooks.populate({scheme: planScheme})],
+    get: [commonHooks.populate({scheme: planScheme})],
     create: [],
     update: [],
     patch: [],

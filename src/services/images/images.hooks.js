@@ -1,7 +1,8 @@
 const dauria = require('dauria');
 const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
-const { queryWithCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
+//const { queryWithCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
+const constants = require('../../constants');
 const logger = require('winston');
 module.exports = {
   before: {
@@ -20,16 +21,34 @@ module.exports = {
     ],
     update: [
       authenticate('jwt'),
+      commonHooks.iff(hook=>!hook.params.secret, commonHooks.disallow()),
       function(hook) {
-        if(hook.data.secret) {
-          
+        if(hook.params.secret) {
+          if(hook.params.secret!=constants.SECRET)
+            commonHooks.disallow();
         }
-      },
-      commonHooks.iff(hook=>!hook.data.secret, commonHooks.disallow()),
-
+      }
     ],
-    patch: [],
-    remove: []
+    patch: [
+      authenticate('jwt'),
+      commonHooks.iff(hook=>!hook.params.secret, commonHooks.disallow()),
+      function(hook) {
+        if(hook.params.secret) {
+          if(hook.params.secret!=constants.SECRET)
+            commonHooks.disallow();
+        }
+      }
+    ],
+    remove: [
+      authenticate('jwt'),
+      commonHooks.iff(hook=>!hook.params.secret, commonHooks.disallow()),
+      function(hook) {
+        if(hook.params.secret) {
+          if(hook.params.secret!=constants.SECRET)
+            commonHooks.disallow();
+        }
+      }
+    ]
   },
 
   after: {

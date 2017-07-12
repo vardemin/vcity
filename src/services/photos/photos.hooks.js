@@ -2,6 +2,7 @@ const { authenticate } = require('feathers-authentication').hooks;
 const commonHooks = require('feathers-hooks-common');
 const { associateCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
 const dauria = require('dauria');
+const constants = require('../../constants');
 
 const userSchema = {
   include:  {
@@ -52,7 +53,12 @@ module.exports = {
         roles: ['admin', 'moderator'],
         ownerField: '_id',
         owner: true 
-      })]
+      }),
+      function(hook) {
+        hook.params.secret = constants.SECRET;
+        hook.app.service('images').remove(hook.id, hook.params);
+      }
+    ]
   },
 
   after: {
@@ -78,7 +84,9 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [
+
+    ]
   },
 
   error: {
