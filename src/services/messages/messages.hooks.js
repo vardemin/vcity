@@ -1,4 +1,5 @@
 const { authenticate, associateCurrentUser, restrictToRoles } = require('feathers-authentication').hooks;
+const hooks = require('feathers-authentication-hooks');
 
 module.exports = {
   before: {
@@ -6,16 +7,16 @@ module.exports = {
     find: [],
     get: [],
     create: [associateCurrentUser],
-    update: [restrictToRoles({
+    update: [hooks.restrictToRoles({
       roles: ['admin', 'moderator']
     })],
     patch: [
-      restrictToRoles({
+      hooks.restrictToRoles({
         roles: ['admin', 'moderator']
       })
     ],
     remove: [
-      restrictToRoles({
+      hooks.restrictToRoles({
         roles: ['admin', 'moderator'],
         owner: true 
       })]
