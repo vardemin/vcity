@@ -10,7 +10,7 @@ module.exports = function (app) {
     email: {type: String, unique: true},
     password: { type: String, required: true },
     name: {type: String, required: true},
-    age: {type: Number, required: true},
+    birth: {type: Date, default:Date.UTC(1999,1,1), required: true},
     sex: {type: Boolean, requred: true},
     interests: [{type: mongoose.Schema.Types.ObjectId, ref: 'interests'}],
     avatar: {type: mongoose.Schema.Types.ObjectId, ref: 'photos'},
