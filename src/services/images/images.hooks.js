@@ -4,6 +4,8 @@ const commonHooks = require('feathers-hooks-common');
 //const { queryWithCurrentUser, restrictToRoles, restrictToOwner } = require('feathers-authentication-hooks');
 const constants = require('../../constants');
 const logger = require('winston');
+
+
 module.exports = {
   before: {
     all: [],
@@ -57,9 +59,12 @@ module.exports = {
     get: [],
     create: [
       function(hook) {
-        hook.data._id = hook.result.id;
-        hook.app.service('photos').create(hook.data, hook.params).then(data=>logger.info(data));
-      },],
+        //hook.data._id = hook.result.id;
+        return hook.app.service('photos').create({path: hook.result.id}, hook.params).then(data=> {
+          logger.info(data);
+          hook.result = data;
+          return hook;
+        })},],
     update: [],
     patch: [],
     remove: []
