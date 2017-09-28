@@ -4,3 +4,9 @@ Object.defineProperty(exports, 'SECRET', {
     enumerable: true,
     configurable: false
 });
+Object.defineProperty(exports, 'URL', {
+    value: 'http://localhost:3030',
+    writable: false,
+    enumerable: true,
+    configurable: false
+});

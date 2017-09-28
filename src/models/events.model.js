@@ -12,9 +12,9 @@ module.exports = function (app) {
     userId: {type: mongoose.Schema.Types.ObjectId, required: true, ref:'users'},
     occuredAt: {type : Date ,required: true},
     description:{type: String, required: true},
-    photos:[{type: mongoose.Schema.Types.ObjectId, required: true , ref : 'photos'}],
+    photos:[{type: mongoose.Schema.Types.ObjectId, ref : 'photos'}],
     location:{type: [Number]  , required :true, index: '2d'},
-    radius : {type: Number , required :true},
+    radius : {type: Number , default :1},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   });

@@ -29,7 +29,14 @@ module.exports = {
     get: [],
     create: [
       authenticate('jwt'),
-      associateCurrentUser({as: 'user'})],
+      associateCurrentUser({as: 'user'}),
+      function(hook) {
+        if (hook.data.path) {
+          hook.data.image = hook.data.path;
+          hook.data.path = constants.URL + '/media/' + hook.data.path;
+        }
+      }
+    ],
     update: [
       authenticate('jwt'), 
       restrictToRoles({
