@@ -29,13 +29,7 @@ const popSchema = {
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
-    find: [function(hook){
-      hook.params.query = {
-        location: {
-          $near: hook.params.user.location,
-          $maxDistance: 1/6371
-        }};
-    }],
+    find: [],
     get: [],
     create: [hooks.queryWithCurrentUser],
     update: [
