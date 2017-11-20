@@ -4,6 +4,15 @@ const { restrictToRoles, restrictToOwner } = require('feathers-authentication-ho
 
 const { hashPassword } = require('feathers-authentication-local').hooks;
 
+const userInterestsSchema = {
+  include: {
+    service: 'interests',
+    nameAs: 'interests',
+    parentField: 'interests',
+    childField: '_id'
+  }
+};
+
 const restrict = [
   authenticate('jwt'),
   restrictToOwner({
@@ -57,7 +66,7 @@ module.exports = {
         commonHooks.discard('password', 'location')
       )
     ],
-    find: [],
+    find: [ commonHooks.populate({ schema: userInterestsSchema })],
     get: [],
     create: [],
     update: [],
