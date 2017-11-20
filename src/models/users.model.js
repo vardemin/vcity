@@ -16,8 +16,8 @@ module.exports = function (app) {
     avatar: {type: mongoose.Schema.Types.ObjectId, ref: 'photos'},
     roles: [{type: String}],
     location: {type:[Number], index: '2d'},
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+  },  {
+    timestamps: true
   });
 
   return mongooseClient.model('users', users);

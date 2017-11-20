@@ -15,8 +15,8 @@ module.exports = function (app) {
     photos:[{type: mongoose.Schema.Types.ObjectId, ref : 'photos'}],
     location:{type: [Number]  , required :true, index: '2d'},
     radius : {type: Number , default :1},
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+  },  {
+    timestamps: true
   });
 
   return mongooseClient.model('events', event);

@@ -9,6 +9,7 @@ const interests = require('./interests/interests.service.js');
 const comments = require('./comments/comments.service.js');
 const images = require('./images/images.service.js');
 const messages = require('./messages/messages.service.js');
+const meets = require('./meets/meets.service.js');
 module.exports = function () {
   const app = this; // eslint-disable-line no-unused-vars
   app.configure(users);
@@ -22,4 +23,5 @@ module.exports = function () {
   app.configure(interests);
   app.configure(comments);
   app.configure(messages);
+  app.configure(meets);
 };

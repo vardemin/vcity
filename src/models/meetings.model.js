@@ -17,7 +17,8 @@ module.exports = function (app) {
     when: {type: Date, required: true},
     end: {type: Date, required: true},
     interests: [{type: mongoose.Schema.Types.ObjectId, ref:'insterests'}],
-    createdAt: { type: Date, default: Date.now },
+  },  {
+    timestamps: true
   });
 
   return mongooseClient.model('meetings', meetings);

@@ -12,8 +12,8 @@ module.exports = function (app) {
     institution: {type: mongoose.Schema.Types.ObjectId, ref:'institutions', required: true},
     text: { type: String, required: true },
     mark: { type: Number, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+  },  {
+    timestamps: true
   });
 
   return mongooseClient.model('reviews', review);

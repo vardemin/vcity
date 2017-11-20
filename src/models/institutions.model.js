@@ -16,8 +16,8 @@ module.exports = function (app) {
     plan: {type: mongoose.Schema.Types.ObjectId, ref: 'plans'},
     owner: {type: mongoose.Schema.Types.ObjectId, required: true, ref: 'users'},
     responsible: [{type: mongoose.Schema.Types.ObjectId, ref: 'users'}],
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+  }, {
+    timestamps: true
   });
 
   return mongooseClient.model('institutions', institutions);

@@ -10,8 +10,8 @@ module.exports = function (app) {
     userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref : 'users' },
     event: {type: mongoose.Schema.Types.ObjectId, required: true, ref : 'events'},
     text : {type : String, required : true},
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+  },  {
+    timestamps: true
   });
 
   return mongooseClient.model('comments', comments);
