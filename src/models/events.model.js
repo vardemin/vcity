@@ -14,7 +14,6 @@ module.exports = function (app) {
     description:{type: String, required: true},
     photos:[{type: mongoose.Schema.Types.ObjectId, ref : 'photos'}],
     location:{type: [Number]  , required :true, index: '2d'},
-    radius : {type: Number , default :1},
   },  {
     timestamps: true
   });
