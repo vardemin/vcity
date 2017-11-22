@@ -31,7 +31,7 @@ module.exports = {
     all: [ authenticate('jwt') ],
     find: [],
     get: [],
-    create: [hooks.queryWithCurrentUser],
+    create: [hooks.queryWithCurrentUser()],
     update: [
       iff(hook => !hook.params.user.roles.contains('admin'), [commonHooks.disableMultiItemChange(), commonHooks.preventChanges('_id'),
         commonHooks.preventChanges('userId')]),
