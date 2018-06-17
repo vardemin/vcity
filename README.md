@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/vardemin/vcity.png?label=ready&title=Ready)](https://waffle.io/vardemin/vcity?utm_source=badge)
 # vcity
 
 > API for live in city app
